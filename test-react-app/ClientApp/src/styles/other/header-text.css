@@ -1,0 +1,21 @@
+.header-text {
+    font-size: 23px;
+    font-weight: 700;
+    padding-top: 1.25em;
+    padding-bottom: 1em;
+    text-transform: uppercase;
+} 
+
+.header-text-block {
+    position: relative;
+    display: inline-flex;
+}
+
+.header-text-outline {
+    position: absolute;
+    height: 2px;
+    width: 30%;
+    background-color: #333;
+    bottom: 1em;
+    right: 0;
+}

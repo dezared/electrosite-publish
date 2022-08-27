@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  elitstroy-db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    container_name: elitstroy-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=elitstroy-database
+    restart: always
+
+  elitstroy:
+    build:
+      context: .
+      dockerfile: test-react-app/Dockerfile
+    environment:
+      - DATABASE_CONNECTIONSTRING=Server=elitstroy-db;Database=elitstroy-database;Username=postgres;Password=admin;Port=5432
+      - JWTSecretKey=bRhYJRlZvBj2vW4MrV5HVdPgIE6VMtCFB0kTtJ1m
+      - JWTLifespan=2592000
+      - ASPNETCORE_URLS=http://*:5050
+    ports:
+      - "4000:5050"

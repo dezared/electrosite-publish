@@ -1,0 +1,16 @@
+.container {
+    margin: 0 auto;
+    max-width: 1500px;
+}
+
+@media only screen and (max-width: 1224px) {
+    .container {
+        width: calc(100% - 30px);
+    }
+}
+
+@media only screen and (min-width: 1223px) {
+    .container {
+        width: calc(100% - 170px);
+    }
+}
