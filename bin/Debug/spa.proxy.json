@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:44416",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "C:\\Users\\Fearp\\source\\repos\\test-react-app\\test-react-app\\ClientApp\\",
+"MaxTimeoutInSeconds": "120"
+}
+}

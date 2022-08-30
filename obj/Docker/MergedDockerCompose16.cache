@@ -1,0 +1,25 @@
+services:
+  elitstroy:
+    build:
+      context: C:\Users\Maris\source\repos\electrosite-publish
+      dockerfile: test-react-app/Dockerfile
+    environment:
+      ASPNETCORE_URLS: http://*:5050
+      DATABASE_CONNECTIONSTRING: Server=elitstroy-db;Database=elitstroy-database;Username=postgres;Password=admin;Port=5432
+      JWTLifespan: '2592000'
+      JWTSecretKey: bRhYJRlZvBj2vW4MrV5HVdPgIE6VMtCFB0kTtJ1m
+    ports:
+    - published: 4000
+      target: 5050
+  elitstroy-db:
+    container_name: elitstroy-db
+    environment:
+      POSTGRES_DB: elitstroy-database
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: postgres
+    image: postgres:latest
+    ports:
+    - published: 5432
+      target: 5432
+    restart: always
+version: '3.4'

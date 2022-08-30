@@ -1,0 +1,30 @@
+services:
+  elitstroy:
+    build:
+      context: C:\Users\Fearp\source\repos\test-react-app
+      dockerfile: test-react-app/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DATABASE_CONNECTIONSTRING: Server=roobiq-db;Database=roobiq-database;Username=postgres;Password=admin;Port=5432
+      JWTLifespan: '2592000'
+      JWTSecretKey: bRhYJRlZvBj2vW4MrV5HVdPgIE6VMtCFB0kTtJ1m
+    image: elitstroy
+    ports:
+    - target: 80
+    - target: 443
+    volumes:
+    - C:\Users\Fearp\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Fearp\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  elitstroy-db:
+    container_name: roobiq-db
+    environment:
+      POSTGRES_DB: roobiq-database
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: postgres
+    image: postgres:latest
+    ports:
+    - published: 5432
+      target: 5432
+    restart: always
+version: '3.4'

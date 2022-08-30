@@ -1,0 +1,52 @@
+services:
+  elitstroy:
+    build:
+      context: C:\Users\Fearp\source\repos\test-react-app
+      dockerfile: test-react-app/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: elitstroy
+      target: base
+    container_name: elitstroy_1
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DATABASE_CONNECTIONSTRING: Server=roobiq-db;Database=roobiq-database;Username=postgres;Password=admin;Port=5432
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      JWTLifespan: '2592000'
+      JWTSecretKey: bRhYJRlZvBj2vW4MrV5HVdPgIE6VMtCFB0kTtJ1m
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    image: elitstroy:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/net6.0/elitstroy.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    ports:
+    - target: 80
+    - target: 443
+    tty: true
+    volumes:
+    - C:\Users\Fearp\source\repos\test-react-app\test-react-app:/app:rw
+    - C:\Users\Fearp\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Fearp\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Fearp\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages:/root/.nuget/fallbackpackages:ro
+    - C:\Users\Fearp\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\Fearp\source\repos\test-react-app:/src:rw
+  elitstroy-db:
+    container_name: roobiq-db
+    environment:
+      POSTGRES_DB: roobiq-database
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: postgres
+    image: postgres:latest
+    ports:
+    - published: 5432
+      target: 5432
+    restart: always
+version: '3.4'

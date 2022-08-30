@@ -1,0 +1,174 @@
+.form-blackbg-block {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: .25;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.form-outer {
+    position: relative;
+    height: 500px;
+    overflow: hidden;
+}
+
+.form-image {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    height: 100%;
+}
+
+.form-text-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    z-index: 11;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-inner-wrapper {
+    display: flex;
+}
+
+.form-text-top {
+    color: white;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+}
+
+.form-text-medium {
+    color: white;
+    opacity: .85;
+    margin-bottom: 5em;
+}
+
+.form-text-bottom {
+    color: white;
+    opacity: .75;
+}
+
+.form-text-outer {
+    width: 75%;
+}
+
+.form-form-outer {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    z-index: 11;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-block {
+    background-color: #81A2D3;
+    width: 82%;
+    height: 82%;
+    margin: 0 auto;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 1224px) {
+    .form-text-left {
+        display: none!important;
+    }
+
+    .form-form-outer {
+        width: 100%!important;
+        left: 0!important;
+    }
+
+    .form-outer {
+        height: 600px;
+    }
+}
+
+.form-factor {
+    width: 80%;
+    height: 80%;
+}
+
+.form-contact-top {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.form-label {
+    color: white;
+    margin-bottom: .25rem;
+    font-weight: 400;
+    font-family: 'SF Pro Display';
+}
+
+.form-input {
+    border: none;
+    background-color: white;
+    border-radius: 7px;
+    padding: 10px;
+    color: #333;
+    font-size: 17px;
+    font-weight: 500;
+    font-family: 'SF Pro Display';
+}
+
+.form-input.big {
+    width: 100%;
+    height: 150px;
+    resize: none;
+}
+
+.form-input:focus-visible {
+    outline: none;
+}
+
+.form-contact-bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2em;
+    align-items: center;
+    gap: 10px;
+}
+
+.button {
+    color: #333;
+    background-color: white;
+    border-radius: 5px;
+    padding: 8px 15px 8px 15px;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+}
+
+@media only screen and (max-width: 1224px) {
+    .form-contact-top {
+        flex-direction: column!important;
+    }
+
+    .form-input.big {
+        height: 100px!important;
+    }
+
+    .form-input {
+        width: 100%!important;
+    }
+}
