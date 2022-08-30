@@ -11,7 +11,7 @@ import HeaderText from '../components/others/HeaderText'
 import Icon from '../components/others/Icon'
 
 import Chart from '../components/Chart'
-
+import React, { useEffect, useState } from "react";
 import FormContact from '../components/FormContact'
 import { Link } from "react-router-dom";
 import { motion } from 'framer-motion';
@@ -27,15 +27,18 @@ import AnimatedText from '../components/others/AnimatedText';
 import StarRatingComponent from 'react-star-rating-component';
 
 function Main() {
+    const [project, setProject] = useState([]);
 
+    useEffect(() => {
     axios({
         method: 'get',
-        url: '/api/application/admin/allProjects',
-        responseType: 'stream'
+        url: '/api/application/admin/allProjects'
     })
         .then(function (response) {
-            console.log(response)
+            setProject(response.data)
+            return Promise.resolve();
         });
+    }, []);
 
     return (
         <div>
@@ -83,6 +86,15 @@ function Main() {
                             </SwiperSlide>
                         </Swiper>
                     </motion.div>
+
+
+                    <HeaderText>Работы</HeaderText>
+
+                    <div>
+                        {project.map((proj) => (
+                            <Link to={`project/${proj.id}`}>{proj.name}</Link>
+                        ))}
+                    </div>
 
                     <HeaderText>Монолитные работы</HeaderText>
 

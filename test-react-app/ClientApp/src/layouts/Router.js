@@ -5,7 +5,8 @@ import Main from '../layouts/Main'
 import About from '../layouts/About'
 import Contacts from "./Contacts";
 import GalleryPage from "./Gallery";
-import AdminMenu from './AdminMenu'
+import Project from "./Project";
+import AdminMenu from './AdminMenu';
 
 import ScrollButton from "../components/others/ScrollButton";
 
@@ -19,6 +20,7 @@ const RouterNavigator = (props) => (
             <Route path="/contacts" element={<Contacts/>} />
             <Route path="/gallery" element={<GalleryPage/>} />
             <Route path="/admin/*" element={<AdminMenu />} />
+            <Route path="/project/:id" element={<Project />} />
         </Routes>
     </BrowserRouter>
 )
