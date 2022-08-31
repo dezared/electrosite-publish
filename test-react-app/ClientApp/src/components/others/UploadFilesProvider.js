@@ -1,6 +1,6 @@
 import jsonServerProvider from 'ra-data-json-server';
 
-const dataProvider = jsonServerProvider('/api/application/admin');
+const dataProvider = jsonServerProvider('https://194.67.109.62:5000/api/application/admin');
 
 const myDataProvider = {
     ...dataProvider,

@@ -30,7 +30,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddEntityFrameworkNpgsql()
                 .AddDbContext<ApplicationContext>(options =>
                     options.UseNpgsql(
-                        "Server=localhost;Database=elitstroy-database;Username=postgres;Password=admin;Port=5432"
+                        "Server=localhost;Database=mydb;Username=myuser;Password=mypass;Port=5432"
                     )
                 );
 
@@ -80,11 +80,6 @@ builder.Services.AddSingleton<IAuthService>(
                 )
             );
 
-builder.Services.AddSpaStaticFiles(configuration =>
-{
-    configuration.RootPath = "ClientApp";
-});
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -110,7 +105,5 @@ app.UseCors(MyAllowSpecificOrigins);
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapFallbackToFile("index.html"); ;
 
 app.Run();

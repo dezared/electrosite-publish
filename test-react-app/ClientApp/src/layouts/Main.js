@@ -32,7 +32,7 @@ function Main() {
     useEffect(() => {
     axios({
         method: 'get',
-        url: '/api/application/admin/allProjects'
+        url: 'https://194.67.109.62:5000/api/application/admin/allProjects'
     })
         .then(function (response) {
             setProject(response.data)
@@ -90,9 +90,30 @@ function Main() {
 
                     <HeaderText>Работы</HeaderText>
 
-                    <div>
+                    <div class="container-projects">
                         {project.map((proj) => (
-                            <Link to={`project/${proj.id}`}>{proj.name}</Link>
+                            <div class="object">
+                                <Link to={`project/${proj.id}`} class="main-img-outer">
+                                    <img class="main-img-object" src={proj.mainImageUrl} alt={proj.name} />
+                                </Link>
+                                <div class="description">
+                                    <Link to={`project/${proj.id}`} className="project-name">{proj.name}</Link>
+								    <div class="info">
+                                        <span class="s">Площадь дома: {proj.meter}&nbsp;м<sup>2</sup></span>
+                                        <span class="price">&nbsp;Стоимость: {proj.money} руб.</span>
+                                        <div class="spacer"></div>
+                                        <Link to={`project/${proj.id}`} className="more">Подробнее</Link>
+								    </div>
+                                    <div class="images">
+                                        {proj.projectMediasUrls.map((imgs) => (
+                                            <div class="image-object-list">
+                                                <img class="image-object-img" src={imgs} />
+                                            </div>
+                                            ))}
+								</div>
+                                    
+							</div>
+						</div>
                         ))}
                     </div>
 

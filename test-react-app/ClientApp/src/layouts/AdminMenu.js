@@ -7,7 +7,7 @@ import myDataProvider from '../components/others/UploadFilesProvider'
 
 const authProvider = {
     login: ({ username, password }) => {
-        const request = new Request('/api/application/login', {
+        const request = new Request('https://194.67.109.62:5000/api/application/login', {
             method: 'POST',
             body: JSON.stringify({ email: username, password }),
             headers: new Headers({ 'Content-Type': 'application/json' })
@@ -43,7 +43,6 @@ const authProvider = {
 
 const AdminMenu = () => (
     <Admin basename="/admin" dataProvider={myDataProvider} authProvider={authProvider}>
-        <Resource name="allUsers" list={AlluserList} />
         <Resource name="allProjects" list={AllProjectList} edit={ProjectEdit} create={ProjectCreate}></Resource>
     </Admin>
 );

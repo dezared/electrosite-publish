@@ -94,7 +94,7 @@ namespace elitstroy.Controllers
         {
             var project = projectRepository.GetProject(id);
 
-            return project;
+            return Ok(project);
         }
 
         [HttpDelete("admin/allProjects/{id}")]
