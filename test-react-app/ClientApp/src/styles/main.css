@@ -493,3 +493,87 @@ b {
     bottom: 5px;
     font-size: 10px;
 }
+
+.blogContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 85%;
+    margin: 0 auto;
+}
+
+.blogImage img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.blogName {
+    font-size: 30px;
+    color: #81a2d3;
+    font-weight: 700;
+}
+
+.blogText {
+    font-size: 16px;
+    line-height: 26px;
+    color: #1a1a1a;
+    max-width: 780px;
+}
+
+.input-calc {
+    border: 1px solid #81a2d3;
+    border-radius: 5px 0px 0px 5px;
+    padding: 10px;
+    font-size: 16px;
+    color: #81a2d3;
+    flex: 1;
+    transition: .2s;
+}
+
+.calc-text {
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.calc-outer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 75%;
+    margin: 0 auto;
+}
+
+.calc-input-outer {
+    display: flex;
+}
+
+.calc-num {
+    border: 1px solid #81a2d3;
+    border-radius: 0px 5px 5px 0px;
+    padding: 10px;
+    color: white;
+    background: #81a2d3;
+}
+
+.calc-main-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.calc-costs {
+    text-align: center;
+    margin-top: 30px;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.calc-costs span {
+    color: #81a2d3;
+}
+
+.calc-info {
+    margin-top: 25px;
+}

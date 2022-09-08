@@ -6,6 +6,7 @@ import {
     Routes,
     useParams,
 } from "react-router-dom";
+import { motion } from 'framer-motion';
 import Container from "../components/others/Container";
 import Bar from '../components/Bar'
 import HeaderText from '../components/others/HeaderText'
@@ -34,11 +35,16 @@ function Project() {
 
     return (
         <div>
-            {project != undefined &&
                 <div>
                     <div className="header finisher-header" style={{ width: '100%' }}>
                         <Bar></Bar>
-                        <Container>
+                    <Container>
+                        {project != undefined &&
+                            <motion.div
+                                initial={{ x: "-100px", opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                            >
+                            <div>
                             <HeaderText>{project.name}</HeaderText>
                             <div className="gallery-single-info">
                                 <div className="main-image-single-outer">
@@ -112,7 +118,10 @@ function Project() {
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                                </div>
+                                </div>
+                                </motion.div>
+                            }
                             <br />
                             <HeaderText>Мы свяжемся с вами</HeaderText>
                         </Container>
@@ -121,13 +130,12 @@ function Project() {
                     <div className='footer-outer'>
                         <Container>
                             <div className='footer-outer'>
-                                <p>ЭЛИТСТРОЙСЕРВИС</p>
+                                <p>ЭЛИТСТРОЙСЕРВИС</p><p>ets@elitestroyservice.ru</p>
                                 <p>2022г.</p>
                             </div>
                         </Container>
                     </div>
                 </div>
-            }
         </div>
     )
 }

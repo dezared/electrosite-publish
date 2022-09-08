@@ -17,14 +17,25 @@ namespace elitstroy.Controllers
         IUserRepository userRepository;
         IProjectRepository projectRepository;
         IBlogRepository blogRepository;
+        IWebHostEnvironment environment;
 
         public ApplicationController(IAuthService authService, IUserRepository userRepository, IProjectRepository projectRepository,
-            IBlogRepository blogRepository)
+            IBlogRepository blogRepository, IWebHostEnvironment environment)
         {
             this.authService = authService;
             this.userRepository = userRepository;
             this.projectRepository = projectRepository;
             this.blogRepository = blogRepository;
+            this.environment = environment;
+        }
+
+        private static Random random = new Random();
+
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
         [HttpPost("login")]
@@ -36,13 +47,13 @@ namespace elitstroy.Controllers
 
             if (user == null)
             {
-                return BadRequest(new { email = "no user with this email" });
+                return BadRequest(new { email = "Нет пользователя с таким емейлом" });
             }
 
             var passwordValid = authService.VerifyPassword(model.Password, user.Password);
             if (!passwordValid)
             {
-                return BadRequest(new { password = "invalid password" });
+                return BadRequest(new { password = "Неверный пароль" });
             }
 
             return authService.GetAuthData(user.Id);
@@ -66,12 +77,19 @@ namespace elitstroy.Controllers
         [HttpPost("admin/allBlogs/")]
         public ActionResult CreateBlogs([FromBody] ActionCreateBlogModel model)
         {
+            if (model.MyFiles.FirstOrDefault() == null)
+                return BadRequest();
+
             var id = Guid.NewGuid().ToString();
+
+            var name = RandomString(12) + ".png";
+            string filePath = Path.Combine(environment.WebRootPath, name);
+            System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(model.MyFiles.First().Split(',')[1]));
 
             var blog = new Blog()
             {
                 Id = id,
-                MainImageUrl = model.MyFiles.First(),
+                MainImageUrl = "https://api.elitestroyservice.ru/" + name,
                 Name = model.Name,
                 Text = model.Text
             };
@@ -98,23 +116,31 @@ namespace elitstroy.Controllers
             blogRepository.Delete(blog);
             blogRepository.Commit();
 
-            return Ok();
+            return Ok(id);
         }
 
 
         [HttpPut("admin/allBlogs/{id}")]
         public ActionResult<Blog> PutBlog([FromBody] ActionBlogModel model)
         {
+            if (model.MyFiles.FirstOrDefault() == null)
+                return BadRequest();
+
             var blog = blogRepository.GetSingle(model.Id);
+
+            var name = RandomString(12) + ".png";
+            string filePath = Path.Combine(environment.WebRootPath, name);
+            System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(model.MyFiles.First().Split(',')[1]));
+
 
             blog.Text = model.Text;
             blog.Name = model.Name;
-            blog.MainImageUrl = model.MyFiles.First();
+            blog.MainImageUrl = "https://api.elitestroyservice.ru/" + name;
 
             blogRepository.Update(blog);
             blogRepository.Commit();
 
-            return Ok(blog.Id);
+            return Ok(blog);
         }
         
         // ---
@@ -135,17 +161,32 @@ namespace elitstroy.Controllers
         [HttpPost("admin/allProjects/")]
         public ActionResult CreateProjects([FromBody] ActionCreateProjectModel model)
         {
+            if(model.MyFiles.Count() < 2)
+                return BadRequest();
+
             var id = Guid.NewGuid().ToString();
 
-            var mainImage = model.MyFiles.Last();
-            model.MyFiles.Remove(mainImage);
+            var imageList = new List<string>();
+
+            foreach (var img in model.MyFiles)
+            {
+                var name = RandomString(12) + ".png";
+                string filePath = Path.Combine(environment.WebRootPath, name);
+                System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(img.Split(',')[1]));
+
+                imageList.Add(name);
+            }
+
+            var mainImage = imageList.Last();
+            imageList.Remove(mainImage);
+
 
             var project = new Project()
             {
                 Id = id,
                 FacadeInfo = model.FacadeInfo,
                 FoundamentInfo = model.FoundamentInfo,
-                MainImageUrl = mainImage,
+                MainImageUrl = "https://api.elitestroyservice.ru/" + mainImage,
                 Meter = model.Meter,
                 Money = model.Money,
                 Name = model.Name,
@@ -155,7 +196,7 @@ namespace elitstroy.Controllers
                 WallsInfo = model.WallsInfo,
                 WareSaftyInfo = model.WareSaftyInfo,
                 Year = model.Year,
-                projectMediasUrls = model.MyFiles
+                projectMediasUrls = imageList.Select(m => "https://api.elitestroyservice.ru/" + m).ToList()
             };
 
             projectRepository.Add(project);
@@ -180,17 +221,30 @@ namespace elitstroy.Controllers
             projectRepository.Delete(project);
             projectRepository.Commit();
 
-            return Ok();
+            return Ok(id);
         }
 
 
         [HttpPut("admin/allProjects/{id}")]
         public ActionResult<Project> PutProject([FromBody] ActionProjectModel model)
         {
+            if (model.MyFiles.Count() < 2)
+                return BadRequest();
+
             var project = projectRepository.GetProject(model.Id);
 
-            var mainImage = model.MyFiles.Last();
-            model.MyFiles.Remove(mainImage);
+            var imageList = new List<string>();
+
+            foreach (var img in model.MyFiles)
+            {
+                string filePath = Path.Combine(environment.WebRootPath, RandomString(12) + ".png");
+                System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(img.Split(',')[1]));
+
+                imageList.Add(filePath);
+            }
+
+            var mainImage = imageList.Last();
+            imageList.Remove(mainImage);
 
             project.Name = model.Name;
             project.Money = model.Money;
@@ -204,12 +258,12 @@ namespace elitstroy.Controllers
             project.FacadeInfo = model.FacadeInfo;
             project.PeregorodgiInfo = model.PeregorodgiInfo;
             project.MainImageUrl = mainImage;
-            project.projectMediasUrls = model.MyFiles;
+            project.projectMediasUrls = imageList;
 
             projectRepository.Update(project);
             projectRepository.Commit();
 
-            return Ok(project.Id);
+            return Ok(project);
         }
 
         [HttpGet("admin/allUsers")]

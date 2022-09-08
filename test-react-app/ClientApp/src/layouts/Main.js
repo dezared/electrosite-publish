@@ -68,41 +68,13 @@ function Main() {
                         >
                             {blog.map((blg) => (
                                 <SwiperSlide>
-                                    <div className="slider-slide">
+                                    <Link to={`blog/${blg.id}`} class="slider-slide">
                                         <p>{blg.name}</p>
                                         <div className="slider-image-black" />
                                         <img src={blg.mainImageUrl} alt="slide 1"></img>
-                                    </div>
+                                    </Link>
                                 </SwiperSlide>
                             ))}
-                            <SwiperSlide>
-                                <div className="slider-slide">
-                                    <p>Монолитное строительство</p>
-                                    <div className="slider-image-black" />
-                                    <img src='https://poselkiguru.ru/uploads/news/monolitnoe-stroitelstvo-sut-tehnologii-dostoinstva-i-nedostatki_l.jpg' alt="slide 1"></img>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <div className="slider-slide">
-                                    <p>Создание каркаса из арматуры</p>
-                                    <div className="slider-image-black" />
-                                    <img src='https://poselkiguru.ru/uploads/5dd49ad44d3e06ff7762733d6402a13b42376.jpg' alt="slide 1"></img>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <div className="slider-slide">
-                                    <p>Установка опалубки</p>
-                                    <div className="slider-image-black" />
-                                    <img src='https://poselkiguru.ru/uploads/6cee33e502b38b23f473b4c9d02a8ff147175.jpg' alt="slide 1"></img>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <div className="slider-slide">
-                                    <p>Заливка бетона</p>
-                                    <div className="slider-image-black" />
-                                    <img src='https://www.ccnova.ru/images/blog/tekhnologiya-monolitnogo-stroitelstva/zalivka-betona.jpg' alt="slide 1"></img>
-                                </div>
-                            </SwiperSlide>
                         </Swiper>
                     </motion.div>
 
@@ -111,6 +83,10 @@ function Main() {
 
                     <div class="container-projects">
                         {project.map((proj) => (
+                             <motion.div
+                        initial={{ x: "-300px", opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                    >
                             <div class="object">
                                 <Link to={`project/${proj.id}`} class="main-img-outer">
                                     <img class="main-img-object" src={proj.mainImageUrl} alt={proj.name} />
@@ -133,6 +109,7 @@ function Main() {
                                     
 							</div>
 						</div>
+                                </motion.div>
                         ))}
                     </div>
 
@@ -325,6 +302,7 @@ function Main() {
                 <Container>
                     <div className='footer-outer'>
                         <p>ЭЛИТСТРОЙСЕРВИС</p>
+                        <p>ets@elitestroyservice.ru</p>
                         <p>2022г.</p>
                     </div>
                 </Container>

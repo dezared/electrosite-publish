@@ -6,6 +6,11 @@ import { BlogEdit, AllBlogsList, BlogCreate } from '../components/others/AllBlog
 import inMemoryJWT from '../components/others/inMemoryJWT';
 import myDataProvider from '../components/others/UploadFilesProvider'
 
+import polyglotI18nProvider from 'ra-i18n-polyglot';
+import russianMessages from 'ra-language-russian';
+
+const i18nProvider = polyglotI18nProvider(() => russianMessages, 'ru');
+
 const authProvider = {
     login: ({ username, password }) => {
         const request = new Request('https://api.elitestroyservice.ru/api/application/login', {
@@ -43,7 +48,7 @@ const authProvider = {
 };
 
 const AdminMenu = () => (
-    <Admin basename="/admin" dataProvider={myDataProvider} authProvider={authProvider}>
+    <Admin basename="/admin" dataProvider={myDataProvider} authProvider={authProvider} i18nProvider={i18nProvider}>
         <Resource name="allProjects" list={AllProjectList} edit={ProjectEdit} create={ProjectCreate}></Resource>
         <Resource name="allBlogs" list={AllBlogsList} edit={BlogEdit} create={BlogCreate}></Resource>
     </Admin>

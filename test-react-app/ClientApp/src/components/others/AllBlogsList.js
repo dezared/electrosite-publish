@@ -3,6 +3,7 @@ import { TopToolbar, CreateButton, Datagrid, NumberField, List, TextField,
     ImageInput, ImageField, FunctionField, BulkDeleteButton,  } from 'react-admin';
 import { Fragment } from 'react';
 
+import { RichTextInput } from 'ra-input-rich-text';
 
 const PostBulkActionButtons = () => (
     <Fragment>
@@ -17,7 +18,6 @@ export function AllBlogsList()
         <Datagrid rowClick="edit" bulkActionButtons={<PostBulkActionButtons />}>
             <TextField source="id" label="Id" />
             <TextField source="name" label="Имя" />
-            <TextField source="text" label="Текст" />
             <ImageField source="mainImageUrl" title="Главное изоображение" label="Главное изоображение" />
         </Datagrid>
     </List>
@@ -33,7 +33,7 @@ export function BlogEdit() {
                 <ImageField source="src" title="title" />
             </ImageInput>
             <TextInput source="name" label="Название"/>
-            <TextInput source="text" multiline label="Текст"/>
+            <RichTextInput source="text" multiline label="Текст"/>
         </SimpleForm>
     </Edit>
     );
@@ -47,7 +47,7 @@ export function BlogCreate() {
                     <ImageField source="src" title="title" />
                 </ImageInput>
                 <TextInput source="name" label="Название" />
-                <TextInput source="text" multiline label="Текст" />
+                <RichTextInput source="text" multiline label="Текст" />
         </SimpleForm>
     </Create>
     );

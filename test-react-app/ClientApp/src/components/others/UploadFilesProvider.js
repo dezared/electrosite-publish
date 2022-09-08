@@ -5,7 +5,7 @@ const dataProvider = jsonServerProvider('https://api.elitestroyservice.ru/api/ap
 const myDataProvider = {
     ...dataProvider,
     create: (resource, params) => {
-        if (resource == "allBlogs") {
+        if (resource == "allBlogs" && params.data.pictures) {
             const myFilesAdded = params.data.pictures;
 
             return Promise.resolve(convertFileToBase64([myFilesAdded]))
@@ -16,36 +16,37 @@ const myDataProvider = {
                         myFiles: transformedMyFile
                     }
                 }));
+        } else {
+            if (resource !== 'allProjects' || !params.data.pictures) {
+                // fallback to the default implementation
+                return dataProvider.create(resource, params);
+            }
+
+            let myFile = params.data.picturesAdded;
+            const myFilesAdded = params.data.pictures
+            myFile.push(myFilesAdded)
+
+            if (!myFile.rawFile instanceof File) {
+                return Promise.reject('Error: Not a file...');
+            }
+
+            return Promise.resolve(convertFileToBase64(myFile))
+                .then(transformedMyFile => dataProvider.create(resource, {
+                    ...params,
+                    data: {
+                        ...params.data,
+                        myFiles: transformedMyFile
+                    }
+                }));
         }
-
-        if (resource !== 'allProjects' || !params.data.pictures) {
-            // fallback to the default implementation
-            return dataProvider.create(resource, params);
-        }            
-       
-        let myFile = params.data.picturesAdded;
-        const myFilesAdded = params.data.pictures
-        myFile.push(myFilesAdded)
-
-          if ( !myFile.rawFile instanceof File ){
-              return Promise.reject('Error: Not a file...');
-          }
-
-          return Promise.resolve( convertFileToBase64(myFile) )
-              .then( transformedMyFile => dataProvider.create(resource, {
-                  ...params,
-                  data: {
-                      ...params.data,
-                      myFiles: transformedMyFile
-                  }
-              }));
     },
-    edit: (resource, params) => {
-        if (resource == "allBlogs") {
+    update: (resource, params) => {
+        if (resource == "allBlogs" && params.data.pictures) {
+            console.log(params)
             const myFilesAdded = params.data.pictures;
 
             return Promise.resolve(convertFileToBase64([myFilesAdded]))
-                .then(transformedMyFile => dataProvider.create(resource, {
+                .then(transformedMyFile => dataProvider.update(resource, {
                     ...params,
                     data: {
                         ...params.data,
@@ -53,28 +54,29 @@ const myDataProvider = {
                     }
                 }));
         }
+        else {
+            if (resource !== 'allProjects' || !params.data.pictures) {
+                // fallback to the default implementation
+                return dataProvider.update(resource, params);
+            }
 
-        if (resource !== 'allProjects' || !params.data.pictures) {
-            // fallback to the default implementation
-            return dataProvider.create(resource, params);
-        }            
-       
-        let myFile = params.data.picturesAdded;
-        const myFilesAdded = params.data.pictures
-        myFile.push(myFilesAdded)
+            let myFile = params.data.picturesAdded;
+            const myFilesAdded = params.data.pictures
+            myFile.push(myFilesAdded)
 
-          if ( !myFile.rawFile instanceof File ){
-              return Promise.reject('Error: Not a file...');
-          }
+            if (!myFile.rawFile instanceof File) {
+                return Promise.reject('Error: Not a file...');
+            }
 
-          return Promise.resolve( convertFileToBase64(myFile) )
-              .then( transformedMyFile => dataProvider.create(resource, {
-                  ...params,
-                  data: {
-                      ...params.data,
-                      myFiles: transformedMyFile
-                  }
-              }));
+            return Promise.resolve(convertFileToBase64(myFile))
+                .then(transformedMyFile => dataProvider.update(resource, {
+                    ...params,
+                    data: {
+                        ...params.data,
+                        myFiles: transformedMyFile
+                    }
+                }));
+        }
     }
 };
 

@@ -35,6 +35,7 @@ function Bar() {
                         <div className='bar-item-url'><Link to="/">Главная</Link></div>
                         <div className='bar-item-url'><Link to="/about">О нас</Link></div>
                         <div className='bar-item-url'><Link to="/contacts">Контакты</Link></div>
+                        <div className='bar-item-url'><Link to="/calc">Калькулятор</Link></div>
                         <div className='bar-itemicon-wrapper'>
                             <a href="mailto:ets@elitestroyservice.ru"><Icon className='bar-itemicon secondary' data="fa-regular fa-envelope-dot"/></a>
                             <a href="tel:+79154598165"><Icon className='bar-itemicon primary' data="fa-regular fa-phone"/></a>

@@ -7,7 +7,8 @@ import Contacts from "./Contacts";
 import GalleryPage from "./Gallery";
 import Project from "./Project";
 import AdminMenu from './AdminMenu';
-
+import Blog from './Blog';
+import Calculator from './Calculator'
 import ScrollButton from "../components/others/ScrollButton";
 
 const RouterNavigator = (props) => (
@@ -21,6 +22,8 @@ const RouterNavigator = (props) => (
             <Route path="/gallery" element={<GalleryPage/>} />
             <Route path="/admin/*" element={<AdminMenu />} />
             <Route path="/project/:id" element={<Project />} />
+            <Route path="/blog/:id" element={<Blog />} />
+            <Route path="/calc" element={<Calculator /> } />
         </Routes>
     </BrowserRouter>
 )
