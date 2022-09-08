@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using elitstroy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace elitstroy.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230813105854_blogs")]
+    partial class blogs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,28 @@ namespace elitstroy.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("elitstroy.Model.Blogs", b =>
+            {
+                b.Property<string>("Id")
+                    .HasColumnType("text");
+
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                b.Property<string>("MainImageUrl")
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                b.Property<string>("Text")
+                    .IsRequired()
+                    .HasColumnType("text");
+
+                b.HasKey("Id");
+
+                b.ToTable("Blogs");
+            });
 
             modelBuilder.Entity("elitstroy.Model.Project", b =>
                 {
@@ -80,27 +104,6 @@ namespace elitstroy.Migrations
 
                     b.ToTable("Projects");
                 });
-
-            modelBuilder.Entity("elitstroy.Model.Blogs", b =>
-            {
-                b.Property<string>("Id")
-                    .HasColumnType("text");
-
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("text");
-
-                b.Property<string>("MainImageUrl")
-                    .IsRequired()
-                    .HasColumnType("text");
-
-                b.Property<string>("Text")
-                    .HasColumnType("text");
-
-                b.HasKey("Id");
-
-                b.ToTable("Blogs");
-            });
 
             modelBuilder.Entity("elitstroy.Model.User", b =>
                 {

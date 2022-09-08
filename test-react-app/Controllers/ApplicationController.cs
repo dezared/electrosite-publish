@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using test_react_app.Model;
+using test_react_app.Services;
 
 namespace elitstroy.Controllers
 {
@@ -14,12 +16,15 @@ namespace elitstroy.Controllers
         IAuthService authService;
         IUserRepository userRepository;
         IProjectRepository projectRepository;
+        IBlogRepository blogRepository;
 
-        public ApplicationController(IAuthService authService, IUserRepository userRepository, IProjectRepository projectRepository)
+        public ApplicationController(IAuthService authService, IUserRepository userRepository, IProjectRepository projectRepository,
+            IBlogRepository blogRepository)
         {
             this.authService = authService;
             this.userRepository = userRepository;
             this.projectRepository = projectRepository;
+            this.blogRepository = blogRepository;
         }
 
         [HttpPost("login")]
@@ -42,6 +47,77 @@ namespace elitstroy.Controllers
 
             return authService.GetAuthData(user.Id);
         }
+
+        // ---
+
+        [HttpGet("admin/allBlogs")]
+        public ActionResult<List<Blog>> GetBlogs()
+        {
+            var allBlogs = blogRepository.GetAll();
+            var countBlogs = blogRepository.Count();
+
+            HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "X-Total-Count");
+            HttpContext.Response.Headers.Add("X-Total-Count", countBlogs.ToString());
+
+            return allBlogs.ToList();
+        }
+
+
+        [HttpPost("admin/allBlogs/")]
+        public ActionResult CreateBlogs([FromBody] ActionCreateBlogModel model)
+        {
+            var id = Guid.NewGuid().ToString();
+
+            var blog = new Blog()
+            {
+                Id = id,
+                MainImageUrl = model.MyFiles.First(),
+                Name = model.Name,
+                Text = model.Text
+            };
+
+            blogRepository.Add(blog);
+            blogRepository.Commit();
+
+            return Ok(blog.Id);
+        }
+
+
+        [HttpGet("admin/allBlogs/{id}")]
+        public ActionResult<Blog> GetBlogs(string id)
+        {
+            var blog = blogRepository.GetSingle(id);
+
+            return Ok(blog);
+        }
+
+        [HttpDelete("admin/allBlogs/{id}")]
+        public ActionResult DeleteBlogs(string id)
+        {
+            var blog = blogRepository.GetSingle(id);
+            blogRepository.Delete(blog);
+            blogRepository.Commit();
+
+            return Ok();
+        }
+
+
+        [HttpPut("admin/allBlogs/{id}")]
+        public ActionResult<Blog> PutBlog([FromBody] ActionBlogModel model)
+        {
+            var blog = blogRepository.GetSingle(model.Id);
+
+            blog.Text = model.Text;
+            blog.Name = model.Name;
+            blog.MainImageUrl = model.MyFiles.First();
+
+            blogRepository.Update(blog);
+            blogRepository.Commit();
+
+            return Ok(blog.Id);
+        }
+        
+        // ---
 
         [HttpGet("admin/allProjects")]
         public ActionResult<List<Project>> GetProjects()

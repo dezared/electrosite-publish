@@ -23,7 +23,7 @@ function Project() {
     useEffect(() => {
     axios({
         method: 'get',
-        url: 'https://194.67.109.62:5000/api/application/admin/allProjects/' + id
+        url: 'https://api.elitestroyservice.ru/api/application/admin/allProjects/' + id
     })
         .then(function (response) {
             setProject(response.data)
@@ -121,7 +121,7 @@ function Project() {
                     <div className='footer-outer'>
                         <Container>
                             <div className='footer-outer'>
-                                <p>ЭЛЕКТРОСТРОЙ</p>
+                                <p>ЭЛИТСТРОЙСЕРВИС</p>
                                 <p>2022г.</p>
                             </div>
                         </Container>

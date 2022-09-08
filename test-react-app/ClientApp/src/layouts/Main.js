@@ -28,16 +28,26 @@ import StarRatingComponent from 'react-star-rating-component';
 
 function Main() {
     const [project, setProject] = useState([]);
+    const [blog, setBlog] = useState([]);
 
     useEffect(() => {
-    axios({
-        method: 'get',
-        url: 'https://194.67.109.62:5000/api/application/admin/allProjects'
-    })
+        axios({
+            method: 'get',
+            url: 'https://api.elitestroyservice.ru/api/application/admin/allProjects'
+        })
         .then(function (response) {
             setProject(response.data)
             return Promise.resolve();
         });
+
+        axios({
+            method: 'get',
+            url: 'https://api.elitestroyservice.ru/api/application/admin/allBlogs'
+        })
+            .then(function (response) {
+                setBlog(response.data)
+                return Promise.resolve();
+            });
     }, []);
 
     return (
@@ -56,6 +66,15 @@ function Main() {
                             navigation
                             pagination={{ clickable: true }}
                         >
+                            {blog.map((blg) => (
+                                <SwiperSlide>
+                                    <div className="slider-slide">
+                                        <p>{blg.name}</p>
+                                        <div className="slider-image-black" />
+                                        <img src={blg.mainImageUrl} alt="slide 1"></img>
+                                    </div>
+                                </SwiperSlide>
+                            ))}
                             <SwiperSlide>
                                 <div className="slider-slide">
                                     <p>Монолитное строительство</p>
@@ -305,7 +324,7 @@ function Main() {
             <div className='footer-outer'>
                 <Container>
                     <div className='footer-outer'>
-                        <p>ЭЛЕКТРОСТРОЙ</p>
+                        <p>ЭЛИТСТРОЙСЕРВИС</p>
                         <p>2022г.</p>
                     </div>
                 </Container>

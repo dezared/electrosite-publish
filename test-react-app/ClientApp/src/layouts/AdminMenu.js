@@ -2,12 +2,13 @@ import * as React from "react";
 import { Admin, Resource, ListGuesser } from 'react-admin';
 import AlluserList from '../components/others/AlluserList';
 import { ProjectEdit, AllProjectList, ProjectCreate } from '../components/others/AllProjectList';
+import { BlogEdit, AllBlogsList, BlogCreate } from '../components/others/AllBlogsList';
 import inMemoryJWT from '../components/others/inMemoryJWT';
 import myDataProvider from '../components/others/UploadFilesProvider'
 
 const authProvider = {
     login: ({ username, password }) => {
-        const request = new Request('https://194.67.109.62:5000/api/application/login', {
+        const request = new Request('https://api.elitestroyservice.ru/api/application/login', {
             method: 'POST',
             body: JSON.stringify({ email: username, password }),
             headers: new Headers({ 'Content-Type': 'application/json' })
@@ -44,6 +45,7 @@ const authProvider = {
 const AdminMenu = () => (
     <Admin basename="/admin" dataProvider={myDataProvider} authProvider={authProvider}>
         <Resource name="allProjects" list={AllProjectList} edit={ProjectEdit} create={ProjectCreate}></Resource>
+        <Resource name="allBlogs" list={AllBlogsList} edit={BlogEdit} create={BlogCreate}></Resource>
     </Admin>
 );
 export default AdminMenu;

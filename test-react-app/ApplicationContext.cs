@@ -1,5 +1,6 @@
 ﻿using elitstroy.Model;
 using Microsoft.EntityFrameworkCore;
+using test_react_app.Model;
 
 namespace elitstroy
 {
@@ -7,6 +8,7 @@ namespace elitstroy
     { 
         public DbSet<User> User { get; set; }
         public DbSet<Project> Projects { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
         
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 

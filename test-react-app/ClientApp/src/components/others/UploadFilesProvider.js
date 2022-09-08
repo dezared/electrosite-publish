@@ -1,10 +1,23 @@
 import jsonServerProvider from 'ra-data-json-server';
 
-const dataProvider = jsonServerProvider('https://194.67.109.62:5000/api/application/admin');
+const dataProvider = jsonServerProvider('https://api.elitestroyservice.ru/api/application/admin');
 
 const myDataProvider = {
     ...dataProvider,
     create: (resource, params) => {
+        if (resource == "allBlogs") {
+            const myFilesAdded = params.data.pictures;
+
+            return Promise.resolve(convertFileToBase64([myFilesAdded]))
+                .then(transformedMyFile => dataProvider.create(resource, {
+                    ...params,
+                    data: {
+                        ...params.data,
+                        myFiles: transformedMyFile
+                    }
+                }));
+        }
+
         if (resource !== 'allProjects' || !params.data.pictures) {
             // fallback to the default implementation
             return dataProvider.create(resource, params);
@@ -28,6 +41,19 @@ const myDataProvider = {
               }));
     },
     edit: (resource, params) => {
+        if (resource == "allBlogs") {
+            const myFilesAdded = params.data.pictures;
+
+            return Promise.resolve(convertFileToBase64([myFilesAdded]))
+                .then(transformedMyFile => dataProvider.create(resource, {
+                    ...params,
+                    data: {
+                        ...params.data,
+                        myFiles: transformedMyFile
+                    }
+                }));
+        }
+
         if (resource !== 'allProjects' || !params.data.pictures) {
             // fallback to the default implementation
             return dataProvider.create(resource, params);

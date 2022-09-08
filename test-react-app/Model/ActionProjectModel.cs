@@ -32,4 +32,19 @@
         public string PeregorodgiInfo { get; set; }
         public List<string> MyFiles { get; set; }
     }
+
+    public class ActionCreateBlogModel
+    {
+        public string Name { get; set; }
+        public List<string> MyFiles { get; set; }
+        public string Text { get; set; }
+    }
+
+    public class ActionBlogModel
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public List<string> MyFiles { get; set; }
+        public string Text { get; set; }
+    }
 }

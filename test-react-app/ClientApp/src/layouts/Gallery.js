@@ -56,7 +56,7 @@ function GalleryPage() {
             <div className='footer-outer'>
                 <Container>
                     <div className='footer-outer'>
-                        <p>ЭЛЕКТРОСТРОЙ</p>
+                        <p>ЭЛИТСТРОЙСЕРВИС</p>
                         <p>2022г.</p>
                     </div>
                 </Container>
