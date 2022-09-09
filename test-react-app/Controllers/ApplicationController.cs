@@ -3,6 +3,8 @@ using elitstroy.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using test_react_app.Model;
 using test_react_app.Services;
@@ -299,6 +301,32 @@ namespace elitstroy.Controllers
             userRepository.Commit();
 
             return authService.GetAuthData(id);
+        }
+
+        [HttpPost("sendMailContact/")]
+        public ActionResult SendMail([FromBody] MailSendModel model)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var smtpClient = new SmtpClient("smtp-relay.sendinblue.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("dezare3232@gmail.com", "0Txf1EQJICKNds8W"),
+                EnableSsl = true,
+            };
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("server@elitestroyservice.ru"),
+                Subject = "Новая заявка",
+                Body = "Email: " + model.Email + " | Phone: " + model.Number + " | Text: " + model.Message
+            };
+
+            mailMessage.To.Add("ets@elitestroyservice.ru");
+
+            smtpClient.Send(mailMessage);
+
+            return Ok();
         }
     }
 }

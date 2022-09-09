@@ -25,6 +25,10 @@ function FormContact() {
                                         <p className='form-label'>Ваша почта</p>
                                         <input className='form-input' type="text" name="name" placeholder='example@gmail.com' />
                                     </div>
+                                    <div>
+                                        <p className='form-label'>Ваш номер</p>
+                                        <input className='form-input' type="text" name="name" placeholder='+7 999 999 99 99' />
+                                    </div>
                                 </div>
 
                                 <div className='form-contact-medium'>

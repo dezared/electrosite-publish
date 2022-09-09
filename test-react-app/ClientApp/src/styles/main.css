@@ -166,7 +166,7 @@
     width: 100%!important;
     margin: 0 auto;
     margin-top: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -188,6 +188,10 @@
 
     .infoblock-outer svg {
         height: 300px!important;
+    }
+
+    .calc-outer {
+        width: 94%!important;
     }
 }
 
@@ -562,6 +566,13 @@ b {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
+
+@media only screen and (max-width: 750px) {
+    .calc-main-wrapper {
+        grid-template-columns: 1fr !important;
+    }
+}
+
 
 .calc-costs {
     text-align: center;

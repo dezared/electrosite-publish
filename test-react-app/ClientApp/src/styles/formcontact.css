@@ -78,7 +78,7 @@
 .form-block {
     background-color: #81A2D3;
     width: 82%;
-    height: 82%;
+    height: 87%;
     margin: 0 auto;
     border-radius: 6px;
     display: flex;
@@ -107,10 +107,10 @@
 }
 
 .form-contact-top {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
-    justify-content: space-between;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .form-label {
@@ -144,7 +144,7 @@
 .form-contact-bottom {
     display: flex;
     justify-content: space-between;
-    margin-top: 2em;
+    margin-top: 0.5em;
     align-items: center;
     gap: 10px;
 }
@@ -170,5 +170,9 @@
 
     .form-input {
         width: 100%!important;
+    }
+
+    .form-block {
+        height: 65%!important;
     }
 }
