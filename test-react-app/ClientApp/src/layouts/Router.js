@@ -11,9 +11,13 @@ import Blog from './Blog';
 import Calculator from './Calculator'
 import ScrollButton from "../components/others/ScrollButton";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const RouterNavigator = (props) => (
     <BrowserRouter>
         {props.children}
+        <ToastContainer />
         <ScrollButton />
         <Routes>
             <Route path="/" element={<Main />} />

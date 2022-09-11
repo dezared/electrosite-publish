@@ -85,7 +85,7 @@ namespace elitstroy.Controllers
             var id = Guid.NewGuid().ToString();
 
             var name = RandomString(12) + ".png";
-            string filePath = Path.Combine(environment.WebRootPath, name);
+            string filePath = Path.Combine(environment.ContentRootPath, "wwwroot", name);
             System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(model.MyFiles.First().Split(',')[1]));
 
             var blog = new Blog()
@@ -131,7 +131,7 @@ namespace elitstroy.Controllers
             var blog = blogRepository.GetSingle(model.Id);
 
             var name = RandomString(12) + ".png";
-            string filePath = Path.Combine(environment.WebRootPath, name);
+            string filePath = Path.Combine(environment.ContentRootPath, "wwwroot", name);
             System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(model.MyFiles.First().Split(',')[1]));
 
 
@@ -173,7 +173,7 @@ namespace elitstroy.Controllers
             foreach (var img in model.MyFiles)
             {
                 var name = RandomString(12) + ".png";
-                string filePath = Path.Combine(environment.WebRootPath, name);
+                string filePath = Path.Combine(environment.ContentRootPath, "wwwroot", name);
                 System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(img.Split(',')[1]));
 
                 imageList.Add(name);
@@ -239,10 +239,11 @@ namespace elitstroy.Controllers
 
             foreach (var img in model.MyFiles)
             {
-                string filePath = Path.Combine(environment.WebRootPath, RandomString(12) + ".png");
+                var name = RandomString(12) + ".png";
+                string filePath = Path.Combine(environment.ContentRootPath, "wwwroot", name);
                 System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(img.Split(',')[1]));
 
-                imageList.Add(filePath);
+                imageList.Add(name);
             }
 
             var mainImage = imageList.Last();
@@ -259,8 +260,8 @@ namespace elitstroy.Controllers
             project.WareSaftyInfo = model.WareSaftyInfo;
             project.FacadeInfo = model.FacadeInfo;
             project.PeregorodgiInfo = model.PeregorodgiInfo;
-            project.MainImageUrl = mainImage;
-            project.projectMediasUrls = imageList;
+            project.MainImageUrl = "https://api.elitestroyservice.ru/" + mainImage;
+            project.projectMediasUrls = imageList.Select(m => "https://api.elitestroyservice.ru/" + m).ToList();
 
             projectRepository.Update(project);
             projectRepository.Commit();

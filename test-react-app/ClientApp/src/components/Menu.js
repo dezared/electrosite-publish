@@ -11,13 +11,13 @@ export default function Menu(props) {
                 <LogoSite className='bar-logo-mini'></LogoSite>
                 <p className="bar-title">ЭЛИТСТРОЙ<span className='bar-title-gray'>СЕРВИС</span></p>
             </div>
-            <div className='bar-item-userblock'>
+            {/* <div className='bar-item-userblock'>
                 <div className='bar-item-usericon'><Icon data="far fa-user" /></div>
                 <div className='bar-item-username'><Link to="/login">Вход</Link></div>
                 <div className='bar-item-username'>Регистрация</div>
             </div>
 
-            {/* <div className='bar-item-userblock'>
+            <div className='bar-item-userblock'>
                 <div className='bar-item-username'>Павел</div>
                 <div className='bar-item-usericon'><Icon data="far fa-user" /></div>
             </div> */}

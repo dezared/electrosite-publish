@@ -31,21 +31,42 @@ function Calculator() {
     });
 
     function updateInputValue(e, name, value) {
+        var newState = { ...state };
 
-        var newState = {...state};
+        if (value.match(/^([0-9]{1,})?(\.)?([0-9]{1,})?$/))
+            newState[name] = value;
 
-        newState[name] = parseInt(value) || '';
+        let result = (
+            (parseFloat(newState.num_8) || 0) * 5000 +
+            (parseFloat(newState.num_9) || 0) * 5000 +
+            (parseFloat(newState.num_10) || 0) * 9000 +
+            (parseFloat(newState.num_11) || 0) * 9000 +
+            (parseFloat(newState.num_12) || 0) * 9000 +
+            (parseFloat(newState.num_13) || 0) * 8000 +
+            (parseFloat(newState.num_14) || 0) * 9000 +
+            (parseFloat(newState.num_15) || 0) * 9000 +
+            (parseFloat(newState.num_16) || 0) * 15000).toFixed(2);
 
-        let result =
-            (parseInt(newState.num_8) || 0) * 5000 +
-            (parseInt(newState.num_9) || 0) * 5000 +
-            (parseInt(newState.num_10) || 0) * 9000 +
-            (parseInt(newState.num_11) || 0) * 9000 +
-            (parseInt(newState.num_12) || 0) * 9000 +
-            (parseInt(newState.num_13) || 0) * 8000 +
-            (parseInt(newState.num_14) || 0) * 9000 +
-            (parseInt(newState.num_15) || 0) * 9000 +
-            (parseInt(newState.num_16) || 0) * 15000;
+        newState.result = result;
+
+        setState(newState);
+    };
+
+    function handleFloat(e, name, value) {
+        var newState = { ...state };
+
+        newState[name] = parseFloat(value) || '';
+
+        let result = (
+            (parseFloat(newState.num_8) || 0) * 5000 +
+            (parseFloat(newState.num_9) || 0) * 5000 +
+            (parseFloat(newState.num_10) || 0) * 9000 +
+            (parseFloat(newState.num_11) || 0) * 9000 +
+            (parseFloat(newState.num_12) || 0) * 9000 +
+            (parseFloat(newState.num_13) || 0) * 8000 +
+            (parseFloat(newState.num_14) || 0) * 9000 +
+            (parseFloat(newState.num_15) || 0) * 9000 +
+            (parseFloat(newState.num_16) || 0) * 15000).toFixed(2);
 
         newState.result = result;
 
@@ -74,8 +95,9 @@ function Calculator() {
                                             placeholder="Вводите значение..."
                                             value={state.num_8}
                                             name="num_8"
-                                            type="number"
+                                            type="text"
                                             onChange={evt => updateInputValue(evt, "num_8", evt.target.value)}
+                                            onBlur={evt => handleFloat(evt, "num_8", evt.target.value)}
                                         />
                                         <div className="calc-num">тн</div>
                                     </div>
@@ -89,8 +111,9 @@ function Calculator() {
                                             placeholder="Вводите значение..."
                                             value={state.num_9}
                                             name="num_9"
-                                            type="number"
+                                            type="text"
                                             onChange={evt => updateInputValue(evt, "num_9", evt.target.value)}
+                                            onBlur={evt => handleFloat(evt, "num_9", evt.target.value)}
                                         />
                                         <div className="calc-num">м³</div>
                                     </div>
@@ -104,8 +127,9 @@ function Calculator() {
                                             placeholder="Вводите значение..."
                                             value={state.num_10}
                                             name="num_10"
-                                            type="number"
-                                            onChange={evt => updateInputValue(evt, "num_10", evt.target.value)}
+                                            type="text"
+                                                onChange={evt => updateInputValue(evt, "num_10", evt.target.value)}
+                                                onBlur={evt => handleFloat(evt, "num_10", evt.target.value)}
                                         />
                                         <div className="calc-num">м³</div>
                                     </div>
@@ -119,8 +143,9 @@ function Calculator() {
                                             placeholder="Вводите значение..."
                                             value={state.num_11}
                                             name="num_11"
-                                            type="number"
-                                            onChange={evt => updateInputValue(evt, "num_11", evt.target.value)}
+                                            type="text"
+                                                onChange={evt => updateInputValue(evt, "num_11", evt.target.value)}
+                                                onBlur={evt => handleFloat(evt, "num_11", evt.target.value)}
                                         />
                                         <div className="calc-num">м³</div>
                                     </div>
@@ -134,8 +159,9 @@ function Calculator() {
                                             placeholder="Вводите значение..."
                                             value={state.num_12}
                                             name="num_12"
-                                            type="number"
-                                            onChange={evt => updateInputValue(evt, "num_12", evt.target.value)}
+                                            type="text"
+                                                onChange={evt => updateInputValue(evt, "num_12", evt.target.value)}
+                                                onBlur={evt => handleFloat(evt, "num_12", evt.target.value)}
                                         />
                                         <div className="calc-num">м³</div>
                                     </div>
@@ -149,8 +175,9 @@ function Calculator() {
                                             placeholder="Вводите значение..."
                                             value={state.num_13}
                                             name="num_13"
-                                            type="number"
-                                            onChange={evt => updateInputValue(evt, "num_13", evt.target.value)}
+                                            type="text"
+                                                onChange={evt => updateInputValue(evt, "num_13", evt.target.value)}
+                                                onBlur={evt => handleFloat(evt, "num_13", evt.target.value)}
                                         />
                                         <div className="calc-num">м³</div>
                                     </div>
@@ -164,8 +191,9 @@ function Calculator() {
                                             placeholder="Вводите значение..."
                                             value={state.num_14}
                                             name="num_14"
-                                            type="number"
-                                            onChange={evt => updateInputValue(evt, "num_14", evt.target.value)}
+                                            type="text"
+                                                onChange={evt => updateInputValue(evt, "num_14", evt.target.value)}
+                                                onBlur={evt => handleFloat(evt, "num_14", evt.target.value)}
                                         />
                                         <div className="calc-num">м³</div>
                                     </div>
@@ -179,8 +207,9 @@ function Calculator() {
                                             placeholder="Вводите значение..."
                                             value={state.num_15}
                                             name="num_15"
-                                            type="number"
-                                            onChange={evt => updateInputValue(evt, "num_15", evt.target.value)}
+                                            type="text"
+                                                onChange={evt => updateInputValue(evt, "num_15", evt.target.value)}
+                                                onBlur={evt => handleFloat(evt, "num_15", evt.target.value)}
                                         />
                                         <div className="calc-num">м³</div>
                                     </div>
@@ -194,8 +223,9 @@ function Calculator() {
                                             placeholder="Вводите значение..."
                                             value={state.num_16}
                                             name="num_16"
-                                            type="number"
-                                            onChange={evt => updateInputValue(evt, "num_16", evt.target.value)}
+                                            type="text"
+                                                onChange={evt => updateInputValue(evt, "num_16", evt.target.value)}
+                                                onBlur={evt => handleFloat(evt, "num_16", evt.target.value)}
                                         />
                                         <div className="calc-num">м³</div>
                                     </div>
