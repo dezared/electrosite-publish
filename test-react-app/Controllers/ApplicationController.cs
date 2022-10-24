@@ -19,16 +19,18 @@ namespace elitstroy.Controllers
         IUserRepository userRepository;
         IProjectRepository projectRepository;
         IBlogRepository blogRepository;
+        IImageRepository imageRepository;
         IWebHostEnvironment environment;
 
         public ApplicationController(IAuthService authService, IUserRepository userRepository, IProjectRepository projectRepository,
-            IBlogRepository blogRepository, IWebHostEnvironment environment)
+            IBlogRepository blogRepository, IWebHostEnvironment environment, IImageRepository imageRepository)
         {
             this.authService = authService;
             this.userRepository = userRepository;
             this.projectRepository = projectRepository;
             this.blogRepository = blogRepository;
             this.environment = environment;
+            this.imageRepository = imageRepository;
         }
 
         private static Random random = new Random();
@@ -329,5 +331,97 @@ namespace elitstroy.Controllers
 
             return Ok();
         }
+
+        // ---
+
+        [HttpGet("admin/allImages")]
+        public ActionResult<List<Image>> GetImages(int count = -1)
+        {
+            var allBlogs = new List<Image>();
+            if (count == -1)  allBlogs = imageRepository.GetAll().ToList();
+            else allBlogs = imageRepository.GetAll().Take(count).ToList();
+
+            var countBlogs = allBlogs.Count();
+
+            HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "X-Total-Count");
+            HttpContext.Response.Headers.Add("X-Total-Count", countBlogs.ToString());
+
+            return allBlogs;
+        }
+
+        [HttpGet("admin/allImages/getCount")]
+        public ActionResult<int> GetCount()
+        {
+            var allImagesCount = imageRepository.GetAll().Count();
+
+            return allImagesCount;
+        }
+
+
+        [HttpPost("admin/allImages/")]
+        public ActionResult CreateImages([FromBody] ImageActionModelUniq model)
+        {
+            if (model.MyFiles.FirstOrDefault() == null)
+                return BadRequest();
+
+            var id = Guid.NewGuid().ToString();
+
+            var name = RandomString(12) + ".png";
+            string filePath = Path.Combine(environment.ContentRootPath, "wwwroot", name);
+            System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(model.MyFiles.First().Split(',')[1]));
+
+            var image = new Image()
+            {
+                Id = id,
+                ImageUrl = "https://api.elitestroyservice.ru/" + name
+            };
+
+            imageRepository.Add(image);
+            imageRepository.Commit();
+
+            return Ok(image.Id);
+        }
+
+
+        [HttpGet("admin/allImages/{id}")]
+        public ActionResult<Image> GetImage(string id)
+        {
+            var blog = imageRepository.GetSingle(id);
+
+            return Ok(blog);
+        }
+
+        [HttpDelete("admin/allImages/{id}")]
+        public ActionResult DeleteImage(string id)
+        {
+            var image = imageRepository.GetSingle(id);
+            imageRepository.Delete(image);
+            imageRepository.Commit();
+
+            return Ok(id);
+        }
+
+
+        [HttpPut("admin/allImages/{id}")]
+        public ActionResult<Image> PutImage([FromBody] ImageActionModel model)
+        {
+            if (model.MyFiles.FirstOrDefault() == null)
+                return BadRequest();
+
+            var image = imageRepository.GetSingle(model.Id);
+
+            var name = RandomString(12) + ".png";
+            string filePath = Path.Combine(environment.ContentRootPath, "wwwroot", name);
+            System.IO.File.WriteAllBytes(filePath, Convert.FromBase64String(model.MyFiles.First().Split(',')[1]));
+
+            image.ImageUrl = "https://api.elitestroyservice.ru/" + name;
+
+            imageRepository.Update(image);
+            imageRepository.Commit();
+
+            return Ok(image);
+        }
+
+        // ---
     }
 }

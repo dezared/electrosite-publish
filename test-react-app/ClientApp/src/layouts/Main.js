@@ -15,7 +15,7 @@ import React, { useEffect, useState } from "react";
 import FormContact from '../components/FormContact'
 import { Link } from "react-router-dom";
 import { motion } from 'framer-motion';
-
+import Zoom from 'react-medium-image-zoom'
 import axios from "axios"
 
 import 'swiper/css';
@@ -29,6 +29,7 @@ import StarRatingComponent from 'react-star-rating-component';
 function Main() {
     const [project, setProject] = useState([]);
     const [blog, setBlog] = useState([]);
+    const [imageCount, setCount] = useState(0);
 
     useEffect(() => {
         axios({
@@ -46,6 +47,15 @@ function Main() {
         })
             .then(function (response) {
                 setBlog(response.data)
+                return Promise.resolve();
+            });
+
+        axios({
+            method: 'get',
+            url: 'https://api.elitestroyservice.ru/api/application/admin/allImages/getCount'
+        })
+            .then(function (response) {
+                setCount(response.data)
                 return Promise.resolve();
             });
     }, []);
@@ -89,7 +99,7 @@ function Main() {
                     >
                             <div class="object">
                                 <Link to={`project/${proj.id}`} class="main-img-outer">
-                                    <img class="main-img-object" src={proj.mainImageUrl} alt={proj.name} />
+                                    <Zoom><img class="main-img-object" src={proj.mainImageUrl} alt={proj.name} /></Zoom>
                                 </Link>
                                 <div class="description">
                                     <Link to={`project/${proj.id}`} className="project-name">{proj.name}</Link>
@@ -97,16 +107,16 @@ function Main() {
                                         <span class="s">Площадь дома: {proj.meter}&nbsp;м<sup>2</sup></span>
                                         <span class="price">&nbsp;Стоимость: {proj.money} руб.</span>
                                         <div class="spacer"></div>
-                                        <Link to={`project/${proj.id}`} className="more">Подробнее</Link>
+                                        
 								    </div>
                                     <div class="images">
                                         {proj.projectMediasUrls.map((imgs) => (
                                             <div class="image-object-list">
-                                                <img class="image-object-img" src={imgs} />
+                                                <Zoom><img class="image-object-img" src={imgs} /></Zoom>
                                             </div>
                                             ))}
 								</div>
-                                    
+                                <Link to={`project/${proj.id}`} className="more">Подробнее</Link> 
 							</div>
 						</div>
                                 </motion.div>
@@ -170,7 +180,7 @@ function Main() {
                     >
                         <Gallery></Gallery>
                     </motion.div>
-                    <Link to="/gallery" className='gallery-info'>Ещё <span>24</span> изоображения...</Link>
+                    <Link to="/gallery" className='gallery-info'>Ещё <span>{imageCount}</span> изоображения...</Link>
                     <HeaderText>Почему монолитные работы это выгодно?</HeaderText>
                     <div className='infoblock-outer'>
                         <InfoBlock></InfoBlock>
@@ -302,7 +312,7 @@ function Main() {
                 <Container>
                     <div className='footer-outer'>
                         <p>ЭЛИТСТРОЙСЕРВИС</p>
-                        <p>ets@elitestroyservice.ru</p>
+                        <p className='mobile-off'>ets@elitestroyservice.ru</p>
                         <p>2022г.</p>
                     </div>
                 </Container>

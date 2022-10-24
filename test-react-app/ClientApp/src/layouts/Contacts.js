@@ -38,7 +38,7 @@ function Contacts() {
             <div className='footer-outer'>
                 <Container>
                     <div className='footer-outer'>
-                        <p>ЭЛИТСТРОЙСЕРВИС</p><p>ets@elitestroyservice.ru</p>
+                        <p>ЭЛИТСТРОЙСЕРВИС</p><p className='mobile-off'>ets@elitestroyservice.ru</p>
                         <p>2022г.</p>
                     </div>
                 </Container>

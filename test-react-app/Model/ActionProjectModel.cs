@@ -47,4 +47,15 @@
         public List<string> MyFiles { get; set; }
         public string Text { get; set; }
     }
+
+    public class ImageActionModel
+    {
+        public string Id { get; set; }
+        public List<string> MyFiles { get; set; }
+    }
+
+    public class ImageActionModelUniq
+    {
+        public List<string> MyFiles { get; set; }
+    }
 }

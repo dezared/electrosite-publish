@@ -7,7 +7,10 @@ import PhotoAlbum from "react-photo-album";
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 
-const photos = [
+import React, { useEffect, useState } from "react";
+import axios from "axios"
+
+/*const photos = [
     { src: "https://cdn.profi.ru/s3/b0/pfiles/9ceb17c3d296f7e7a0b4a67ef5e2682b.jpg-profi_w1500.jpg" },
     { src: "https://cdn.profi.ru/s3/b0/pfiles/187e1c6ceebd9c461b24be6f496b8ab6.jpg-profi_w1500.jpg" },
     { src: 'https://cdn.profi.ru/s3/b1/pfiles/a35a164ca1ce774b4f0436c02c9b8831.jpg-profi_w1500.jpg' },
@@ -37,9 +40,30 @@ const photos = [
     { src: 'https://cdn.profi.ru/pfiles/KornilovEV3/6867511eecbdcc6ed8026fd52de6debd-profi_w1500.jpg' },
     { src: 'https://cdn.profi.ru/pfiles/KornilovEV3/3812796472a7b4110c12bf425f881914-profi_w1500.jpg' },
     { src: 'https://cdn.profi.ru/pfiles/KornilovEV3/9c409a744425ece84bd70b9a27fc2c8d-profi_w1500.jpg' }
-];
+];*/
 
 function GalleryPage() {
+    const [images, setImage] = useState([]);
+
+    useEffect(() => {
+        axios({
+            method: 'get',
+            url: 'https://api.elitestroyservice.ru/api/application/admin/allImages'
+        })
+            .then(function (response) {
+                const photos = [];
+
+                response.data.forEach((element, index) => {
+                    photos.push({ src: element.imageUrl});
+                });
+
+
+                setImage(photos);
+
+                return Promise.resolve();
+            });
+    }, []);
+
     return (
         <div>
             <div className="header finisher-header" style={{ width: '100%' }}>
@@ -47,7 +71,7 @@ function GalleryPage() {
                 <Container>
                     <HeaderText>Галлерея</HeaderText>
                     <div>
-                        <PhotoAlbum renderPhoto={RenderPhoto} photos={photos} layout="masonry" columns={4} />
+                        <PhotoAlbum renderPhoto={RenderPhoto} photos={images} layout="masonry" columns={4} />
                     </div>
                     <HeaderText>Мы свяжемся с вами</HeaderText>
                 </Container>
@@ -56,7 +80,7 @@ function GalleryPage() {
             <div className='footer-outer'>
                 <Container>
                     <div className='footer-outer'>
-                        <p>ЭЛИТСТРОЙСЕРВИС</p><p>ets@elitestroyservice.ru</p>
+                        <p>ЭЛИТСТРОЙСЕРВИС</p><p className='mobile-off'>ets@elitestroyservice.ru</p>
                         <p>2022г.</p>
                     </div>
                 </Container>

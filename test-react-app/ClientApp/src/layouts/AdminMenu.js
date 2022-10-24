@@ -3,6 +3,7 @@ import { Admin, Resource, ListGuesser } from 'react-admin';
 import AlluserList from '../components/others/AlluserList';
 import { ProjectEdit, AllProjectList, ProjectCreate } from '../components/others/AllProjectList';
 import { BlogEdit, AllBlogsList, BlogCreate } from '../components/others/AllBlogsList';
+import { AllImagesList, ImageCreate, ImageEdit } from '../components/others/AllImagesList'
 import inMemoryJWT from '../components/others/inMemoryJWT';
 import myDataProvider from '../components/others/UploadFilesProvider'
 
@@ -51,6 +52,7 @@ const AdminMenu = () => (
     <Admin basename="/admin" dataProvider={myDataProvider} authProvider={authProvider} i18nProvider={i18nProvider}>
         <Resource name="allProjects" list={AllProjectList} edit={ProjectEdit} create={ProjectCreate}></Resource>
         <Resource name="allBlogs" list={AllBlogsList} edit={BlogEdit} create={BlogCreate}></Resource>
+        <Resource name="allImages" list={AllImagesList} edit={ImageEdit} create={ImageCreate}></Resource>
     </Admin>
 );
 export default AdminMenu;

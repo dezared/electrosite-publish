@@ -8,4 +8,9 @@ namespace test_react_app.Model
         public string MainImageUrl { get; set; }
         public string Text { get; set; }
     }
+
+    public class Image : IEntityBase
+    {
+        public string ImageUrl { get; set; }
+    }
 }

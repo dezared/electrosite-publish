@@ -44,10 +44,20 @@ export function ProjectEdit() {
     return(
     <Edit>
         <SimpleForm>
+            <p>Прежнее изоображение:</p>
+            <ImageField source="mainImageUrl"></ImageField>
             <TextInput disabled label="Id" source="id" />
             <ImageInput source="pictures" label="Главное изоображение" accept="image/*">
                 <ImageField source="src" title="title" />
             </ImageInput>
+            <p>Прежние дополнительные изоображения:</p>
+            <FunctionField render={record => 
+                record.projectMediasUrls.map(images => 
+                    <div className='MuiBox-root css-cb34tx-RaImageField-root'>
+                        <img className='RaImageField-image' key={images} src={images} />
+                    </div>
+                )
+            }/>
             <ImageInput source="picturesAdded" label="Дополнительные изоображения" accept="image/*" multiple={true}>
                 <ImageField source="srcMultiple" title="title" />
             </ImageInput>

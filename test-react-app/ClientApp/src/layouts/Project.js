@@ -13,6 +13,7 @@ import HeaderText from '../components/others/HeaderText'
 import FormContact from '../components/FormContact'
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Zoom from 'react-medium-image-zoom'
 
 import axios from "axios"
 
@@ -49,18 +50,18 @@ function Project() {
                             <div className="gallery-single-info">
                                 <div className="main-image-single-outer">
                                 <div className="main-image-single">
-                                        <img src={project.mainImageUrl} alt={project.name} />
+                                        <Zoom><img src={project.mainImageUrl} alt={project.name} /></Zoom>
                                 </div>
                                 <Swiper
                                     modules={[Navigation]}
                                     spaceBetween={50}
-                                    slidesPerView={2}
+                                    slidesPerView={3}
                                     navigation
                                 >
                                     {project.projectMediasUrls.map((imgs) => (
                                         <SwiperSlide>
                                             <div className="slider-slide">
-                                                <img src={imgs}></img>
+                                                <Zoom><img src={imgs}></img></Zoom>
                                             </div>
                                         </SwiperSlide>
                                     ))}
@@ -130,7 +131,7 @@ function Project() {
                     <div className='footer-outer'>
                         <Container>
                             <div className='footer-outer'>
-                                <p>ЭЛИТСТРОЙСЕРВИС</p><p>ets@elitestroyservice.ru</p>
+                                <p>ЭЛИТСТРОЙСЕРВИС</p><p className='mobile-off'>ets@elitestroyservice.ru</p>
                                 <p>2022г.</p>
                             </div>
                         </Container>

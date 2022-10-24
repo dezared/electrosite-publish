@@ -3,7 +3,6 @@ import { TopToolbar, CreateButton, Datagrid, NumberField, List, TextField,
     ImageInput, ImageField, FunctionField, BulkDeleteButton,  } from 'react-admin';
 import { Fragment } from 'react';
 
-import { RichTextInput } from 'ra-input-rich-text';
 
 const PostBulkActionButtons = () => (
     <Fragment>
@@ -11,45 +10,40 @@ const PostBulkActionButtons = () => (
     </Fragment>
 );
 
-export function AllBlogsList()
+export function AllImagesList()
 {
     return (
         <List>
         <Datagrid rowClick="edit" bulkActionButtons={<PostBulkActionButtons />}>
             <TextField source="id" label="Id" />
-            <TextField source="name" label="Имя" />
-            <ImageField source="mainImageUrl" title="Главное изоображение" label="Главное изоображение" />
+            <ImageField source="imageUrl" title="Главное изоображение" label="Главное изоображение" />
         </Datagrid>
     </List>
     )
 }
 
-export function BlogEdit() {
+export function ImageEdit() {
     return(
     <Edit>
         <SimpleForm>
-            <p>Прежнее изоображение:</p>
-            <ImageField source="mainImageUrl"></ImageField>
             <TextInput disabled label="Id" source="id" />
+            <p>Прежнее изоображение:</p>
+            <ImageField source="imageUrl"></ImageField>
             <ImageInput source="pictures" label="Главное изоображение" accept="image/*">
                 <ImageField source="src" title="title" />
             </ImageInput>
-            <TextInput source="name" label="Название"/>
-            <RichTextInput source="text" multiline label="Текст"/>
         </SimpleForm>
     </Edit>
     );
 }
 
-export function BlogCreate() {
+export function ImageCreate() {
     return(
     <Create>
         <SimpleForm>
-                <ImageInput source="pictures" label="Главное изоображение" accept="image/*">
-                    <ImageField source="src" title="title" />
-                </ImageInput>
-                <TextInput source="name" label="Название" />
-                <RichTextInput source="text" multiline label="Текст" />
+            <ImageInput source="pictures" label="Главное изоображение" accept="image/*">
+                <ImageField source="src" title="title" />
+            </ImageInput>
         </SimpleForm>
     </Create>
     );

@@ -25,6 +25,10 @@
     .slider-slide {
         height: 350px;
     }
+
+    .mobile-off {
+        display: none;
+    }
 }
 
 @media only screen and (min-width: 1281px) {
@@ -340,11 +344,26 @@ b {
     display: flex;
 }
 
+@media only screen and (max-width: 1224px) {
+    .object {
+        flex-direction: column;
+    }
+
+    .more {
+        float: none!important;
+    }
+
+    .main-img-outer {
+        float: none!important;
+        width: unset!important;
+    }
+}
+
 .description {
     padding: 20px 0 0;
     float: right;
-    width: 794px;
-    padding-left: 20px;
+    padding: 10px;
+    flex: 1;
 }
 
 .name {
@@ -372,16 +391,72 @@ b {
     float: right;
 }
 
+@media only screen and (max-width: 1224px) {
+    .images {
+        grid-template-columns: 1fr 1fr 1fr;
+        margin-top: 25px!important;
+        display: grid!important;
+        gap: 3px!important;
+    }
+
+    .dv-star-rating {
+        font-size: 12px;
+        flex: 1;
+    }
+
+    .review-user-name {
+        flex: 1;
+    }
+
+    .review-list-outer {
+        width: 100%!important;
+    }
+}
+
 .images {
     padding: 0;
-    margin-top: 25px;
-    display: flex;
+    flex-wrap: wrap;
+    margin-top: 35px;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 20px;
 }
 
-.main-img-outer {
+.object a {
+    flex: 1;
+    margin: 10px;
+}
+
+.MuiTypography-body2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+[data-rmiz-modal-content] img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.main-image-single div {
+    width: 100%;
+    height: 100%;
+}
+
+[data-rmiz-overlay] .image-object-img {
+    width: 100%;
+}
+
+[data-rmiz-overlay] .main-img-outer {
     float: left;
     width: 320px;
+    margin: 20px;
+    flex: 1;
+}
+
+.main-img-object {
+    width: 100%;
 }
 
 .main-img-outer img {
@@ -390,7 +465,6 @@ b {
 }
 
 .image-object-list {
-    width: 100px;
 }
 
 .image-object-list img {
@@ -468,9 +542,10 @@ b {
 .description-list__item {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: left;
     font-size: 14px;
     padding: 0 10px;
+    flex-direction: column;
     margin: 10px 0;
 }
 
@@ -482,9 +557,15 @@ b {
     color: #665E58;
 }
 
+.project-name {
+    font-size: 23px;
+    margin-top: 20px;
+    display: block;
+}
+
 .description-list__value {
     max-width: 230px;
-    text-align: right;
+    text-align: left;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;

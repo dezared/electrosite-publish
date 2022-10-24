@@ -5,7 +5,20 @@ const dataProvider = jsonServerProvider('https://api.elitestroyservice.ru/api/ap
 const myDataProvider = {
     ...dataProvider,
     create: (resource, params) => {
-        if (resource == "allBlogs" && params.data.pictures) {
+        if(resource == "allImages" && params.data.pictures)
+        {
+            const myFilesAdded = params.data.pictures;
+
+            return Promise.resolve(convertFileToBase64([myFilesAdded]))
+                .then(transformedMyFile => dataProvider.create(resource, {
+                    ...params,
+                    data: {
+                        ...params.data,
+                        MyFiles: transformedMyFile
+                    }
+                }));
+        }
+        else if (resource == "allBlogs" && params.data.pictures) {
             const myFilesAdded = params.data.pictures;
 
             return Promise.resolve(convertFileToBase64([myFilesAdded]))
@@ -41,7 +54,20 @@ const myDataProvider = {
         }
     },
     update: (resource, params) => {
-        if (resource == "allBlogs" && params.data.pictures) {
+        if (resource == "allImages" && params.data.pictures) {
+            console.log(params)
+            const myFilesAdded = params.data.pictures;
+
+            return Promise.resolve(convertFileToBase64([myFilesAdded]))
+                .then(transformedMyFile => dataProvider.update(resource, {
+                    ...params,
+                    data: {
+                        ...params.data,
+                        MyFiles: transformedMyFile
+                    }
+                }));
+        }
+        else if (resource == "allBlogs" && params.data.pictures) {
             console.log(params)
             const myFilesAdded = params.data.pictures;
 

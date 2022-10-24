@@ -9,6 +9,7 @@ namespace elitstroy
         public DbSet<User> User { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Image> Images { get; set; }
         
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 

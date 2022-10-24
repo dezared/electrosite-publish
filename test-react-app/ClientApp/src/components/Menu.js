@@ -26,7 +26,7 @@ export default function Menu(props) {
             <div className='bar-item-url'><Link to="/contacts">Контакты</Link></div>
             <div className='bar-item-url'><Link to="/calc">Калькулятор</Link></div>
             <div className='bar-itemicon-wrapper-menu'>
-                <a href="mailto:ets@elitestroyservice.ru"><Icon className='bar-itemicon secondary' data="fa-regular fa-envelope-dot"/><p>ets@elitestroyservice.ru</p></a>
+                <a href="mailto:ets@elitestroyservice.ru"><Icon className='bar-itemicon secondary' data="fa-regular fa-envelope-dot"/><p className='mobile-off'>ets@elitestroyservice.ru</p></a>
                 <a href="tel:+79154598165"><Icon className='bar-itemicon primary' data="fa-regular fa-phone"/><p>+7 915 459-81-65</p></a>
             </div>
         </div>
