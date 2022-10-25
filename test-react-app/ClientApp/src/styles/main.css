@@ -669,3 +669,15 @@ b {
 .calc-info {
     margin-top: 25px;
 }
+
+.MuiFormControl-root {
+    width: 100%;
+}
+
+.RaLayout-appFrame {
+    width: 100vw;
+}
+
+.RaLayout-appFrame > * {
+    overflow: auto;
+}

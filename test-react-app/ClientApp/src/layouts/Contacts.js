@@ -18,6 +18,25 @@ function Contacts() {
                     <HeaderText>Контакты</HeaderText>
                     <br />
                     <AnimatedText changeX={-200} duration={0.4}>
+                        <p className="information-text-contacts"><b><Icon data='far fa-info'></Icon>  ИНН: 5017127100/501701001</b></p>
+                    </AnimatedText>
+                    <AnimatedText changeX={-200} duration={0.4}>
+                        <p className="information-text-contacts"><b><Icon data='far fa-info'></Icon>  ОГРН: 1215000118563</b></p>
+                    </AnimatedText>
+                    <AnimatedText changeX={-200} duration={0.4}>
+                        <p className="information-text-contacts"><b><Icon data='far fa-info'></Icon>  БИК: 044525225</b></p>
+                    </AnimatedText>
+                    <AnimatedText changeX={-200} duration={0.4}>
+                        <p className="information-text-contacts"><b><Icon data='far fa-info'></Icon>  Расчётный счёт: 40702810940000116022</b></p>
+                    </AnimatedText>
+                    <AnimatedText changeX={-200} duration={0.4}>
+                        <p className="information-text-contacts"><b><Icon data='far fa-info'></Icon>  Корреспондентный счёт: 30101810400000000225</b></p>
+                    </AnimatedText>
+                    <AnimatedText changeX={-200} duration={0.4}>
+                        <p className="information-text-contacts"><b><Icon data='far fa-info'></Icon>  Банк: ПАО СБЕРБАНК</b></p>
+                    </AnimatedText>
+                    <br />
+                    <AnimatedText changeX={-200} duration={0.4}>
                         <p className="information-text-contacts"><b><Icon data='far fa-city'></Icon>  143500, Россия, Московская область, г. о. Истра, г. Истра, ул. Рябкина, д1, пом. 2Б.</b></p>
                     </AnimatedText>
                     <AnimatedText changeX={-200} duration={0.4}>
@@ -30,7 +49,6 @@ function Contacts() {
                     <AnimatedText changeX={-200} duration={0.4}>
                         <p className="information-text-contacts"><b><Icon data='far fa-mailbox'></Icon>  ets@elitestroyservice.ru</b></p>
                     </AnimatedText>
-                    <br />
                     <HeaderText>Мы свяжемся с вами</HeaderText>
                 </Container>
             </div>

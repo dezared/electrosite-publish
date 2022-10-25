@@ -26,7 +26,7 @@ const ScrollButton = () =>{
   
   return (
     <div className='arrow-bottom-outer'>
-        <div onClick={scrollToTop} className='arrow-bottom-inner' style={{opacity: visible ? 1 : 0}}>
+        <div onClick={scrollToTop} className='arrow-bottom-inner' style={{opacity: visible ? 1 : 0, zIndex: visible ? 20 : -1000}}>
             <Icon data="far fa-arrow-up" />
         </div>
     </div>
